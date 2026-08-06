@@ -17,6 +17,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone', 30)->nullable();
+            $table->string('whatsapp', 30)->nullable();
+            $table->string('photo')->nullable();
+            $table->string('gender', 12)->nullable();
+            $table->date('birth_date')->nullable();
+            $table->text('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('identity_number', 30)->nullable();
+            $table->text('notes')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });
