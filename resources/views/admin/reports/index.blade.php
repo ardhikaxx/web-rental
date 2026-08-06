@@ -19,6 +19,7 @@
         ['admin.reports.fleet', 'fa-car', 'Laporan Armada', 'Status & performa armada', 'warning'],
         ['admin.reports.driver', 'fa-user-tie', 'Laporan Driver', 'Kinerja & rating driver', 'dark'],
         ['admin.reports.customer', 'fa-users', 'Laporan Pelanggan', 'Total belanja per pelanggan', 'info'],
+        ['admin.reports.fleet-profit', 'fa-sack-dollar', 'Laba per Unit Armada', 'Pendapatan - biaya maintenance per unit', 'success'],
     ];
     @endphp
     @foreach ($menus as $m)
