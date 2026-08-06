@@ -188,6 +188,7 @@ Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(fun
     Route::get('reports/fleet', [ReportController::class, 'fleet'])->name('reports.fleet');
     Route::get('reports/driver', [ReportController::class, 'driver'])->name('reports.driver');
     Route::get('reports/customer', [ReportController::class, 'customer'])->name('reports.customer');
+    Route::get('reports/fleet-profit', [ReportController::class, 'fleetProfit'])->name('reports.fleet-profit');
     Route::get('reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export-pdf');
     Route::get('reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.export-excel');
 
