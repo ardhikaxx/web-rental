@@ -33,6 +33,7 @@
         .badge{font-weight:500}
         @media(max-width:992px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:none}.main{margin-left:0}}
     </style>
+    @yield('styles')
     @stack('styles')
 </head>
 <body>
@@ -131,6 +132,7 @@
         }).then((r) => { if (r.isConfirmed) form.submit(); });
     });
 </script>
+@yield('scripts')
 @stack('scripts')
 </body>
 </html>
