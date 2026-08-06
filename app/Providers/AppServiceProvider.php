@@ -6,6 +6,7 @@ use App\Models\SiteSetting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Paginator::defaultView('pagination.numbers');
+
         $settings = SiteSetting::allAsArray();
         // always referenced views
         View::share('site', $settings);
