@@ -102,6 +102,34 @@ class ReportController extends Controller
         return view('reports.customer', ['customers' => $customers]);
     }
 
+    public function fleetProfit(Request $request)
+    {
+        $from = $request->filled('from') ? $request->from : now()->startOfYear()->format('Y-m-d');
+        $to = $request->filled('to') ? $request->to : now()->format('Y-m-d');
+
+        $fleets = Fleet::withCount([
+            'bookings as trips' => fn ($q) => $q->where('status', '!=', 'dibatalkan')->whereBetween('start_date', [$from, $to]),
+            'maintenances as maintenance_count' => fn ($q) => $q->whereBetween('date', [$from, $to]),
+        ])->withSum(['bookings as revenue' => fn ($q) => $q->where('status', '!=', 'dibatalkan')->whereBetween('start_date', [$from, $to])], 'total_price')
+            ->withSum(['maintenances as maintenance_cost' => fn ($q) => $q->whereBetween('date', [$from, $to])], 'cost')
+            ->get()->map(function ($f) {
+            $f->revenue = (float) $f->revenue;
+            $f->maintenance_cost = (float) $f->maintenance_cost;
+            $f->net = $f->revenue - $f->maintenance_cost;
+            return $f;
+        })->sortByDesc('net')->values();
+
+        $totals = [
+            'trips' => (int) $fleets->sum('trips'),
+            'revenue' => (float) $fleets->sum('revenue'),
+            'maintenance_count' => (int) $fleets->sum('maintenance_count'),
+            'maintenance_cost' => (float) $fleets->sum('maintenance_cost'),
+            'net' => (float) $fleets->sum('net'),
+        ];
+
+        return view('reports.fleet-profit', compact('fleets', 'from', 'to', 'totals'));
+    }
+
     public function exportPdf(Request $request)
     {
         $type = $request->query('type', 'booking');
@@ -175,6 +203,21 @@ class ReportController extends Controller
             case 'maintenance':
                 $headings = ['Kode', 'Armada', 'Jenis', 'Tanggal', 'Biaya', 'Status'];
                 $data = Maintenance::with('fleet')->get()->map(fn ($m) => [$m->code, optional($m->fleet)->license_plate, $m->type, $m->date?->format('Y-m-d'), (float) $m->cost, $m->status]);
+                return ['headings' => $headings, 'data' => $data->toArray()];
+
+            case 'fleet-profit':
+                $from = $from ?? now()->startOfYear();
+                $to = $to ?? now();
+                $rows = Fleet::withCount([
+                    'bookings as trips' => fn ($q) => $q->where('status', '!=', 'dibatalkan')->whereBetween('start_date', [$from, $to]),
+                    'maintenances as m_count' => fn ($q) => $q->whereBetween('date', [$from, $to]),
+                ])->withSum(['bookings as rev' => fn ($q) => $q->where('status', '!=', 'dibatalkan')->whereBetween('start_date', [$from, $to])], 'total_price')
+                    ->withSum(['maintenances as maint' => fn ($q) => $q->whereBetween('date', [$from, $to])], 'cost')->get();
+                $headings = ['Kode', 'Armada', 'Plat', 'Trip', 'Pendapatan', 'Biaya Maintenance', 'Profit'];
+                $data = $rows->map(fn ($x) => [
+                    $x->code, $x->display_name, $x->license_plate, (int) $x->trips,
+                    (float) $x->rev, (float) $x->maint, (float) ($x->rev - $x->maint),
+                ]);
                 return ['headings' => $headings, 'data' => $data->toArray()];
 
             default:
