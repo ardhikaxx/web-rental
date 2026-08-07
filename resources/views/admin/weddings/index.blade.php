@@ -3,10 +3,8 @@
 
 @section('content')
 <div class="card card-grid">
+    <x-table-toolbar title="Wedding Car" :searchable="false" addUrl="{{ route('admin.weddings.create') }}" addLabel="Tambah Paket" addTitle="Tambah Paket Wedding"></x-table-toolbar>
     <div class="card-body">
-        <div class="d-flex justify-content-end mb-3">
-            <a href="{{ route('admin.weddings.create') }}" class="btn btn-sm btn-brand"><i class="fa-solid fa-plus me-1"></i>Tambah Paket</a>
-        </div>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th>Paket</th><th>Armada</th><th>Area</th><th>Durasi</th><th>Total Harga</th><th>Aksi</th></tr></thead>
