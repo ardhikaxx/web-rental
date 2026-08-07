@@ -3,23 +3,19 @@
 
 @section('content')
 <div class="card card-grid">
+    <x-table-toolbar title="Maintenance" searchable="false" filter="filter" addUrl="{{ route('admin.maintenances.create') }}" addLabel="Catat Maintenance" addTitle="Catat Maintenance Baru">
+        <select name="type" class="form-select form-select-sm" style="width:auto">
+            <option value="">Semua Tipe</option>
+            @foreach ($types as $k=>$v)
+                <option value="{{ $k }}" @selected(request('type')==$k)>{{ $v }}</option>
+            @endforeach
+        </select>
+        <select name="fleet_id" class="form-select form-select-sm" style="width:auto">
+            <option value="">Semua Armada</option>
+            @foreach ($fleets as $f)<option value="{{ $f->id }}" @selected(request('fleet_id')==$f->id)>{{ $f->display_name }} ({{ $f->license_plate }})</option>@endforeach
+        </select>
+    </x-table-toolbar>
     <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-            <form class="d-flex gap-2" method="get" action="">
-                <select name="type" class="form-select form-select-sm">
-                    <option value="">Semua Tipe</option>
-                    @foreach ($types as $k=>$v)
-                        <option value="{{ $k }}" @selected(request('type')==$k)>{{ $v }}</option>
-                    @endforeach
-                </select>
-                <select name="fleet_id" class="form-select form-select-sm">
-                    <option value="">Semua Armada</option>
-                    @foreach ($fleets as $f)<option value="{{ $f->id }}" @selected(request('fleet_id')==$f->id)>{{ $f->display_name }} ({{ $f->license_plate }})</option>@endforeach
-                </select>
-                <button class="btn btn-sm btn-outline-primary">Filter</button>
-            </form>
-            <a href="{{ route('admin.maintenances.create') }}" class="btn btn-sm btn-brand"><i class="fa-solid fa-plus me-1"></i>Catat Maintenance</a>
-        </div>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th>Kode</th><th>Armada</th><th>Tipe</th><th>Tanggal</th><th>Biaya</th><th>Workshop</th><th>Status</th><th>Aksi</th></tr></thead>
