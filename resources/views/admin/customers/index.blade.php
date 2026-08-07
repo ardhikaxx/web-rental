@@ -3,11 +3,8 @@
 
 @section('content')
 <div class="card card-grid">
+    <x-table-toolbar title="Pelanggan" placeholder="Cari nama / email / no HP…" filter="filter"></x-table-toolbar>
     <div class="card-body">
-        <form class="d-flex gap-2 mb-3" method="get" action="" style="max-width:360px">
-            <input type="text" name="q" value="{{ request('q') }}" class="form-control form-control-sm" placeholder="Cari nama / email / no HP">
-            <button class="btn btn-sm btn-outline-primary">Filter</button>
-        </form>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th>Nama</th><th>Email</th><th>No HP</th><th>Kota</th><th>Total Booking</th><th>Total Belanja</th><th>Aksi</th></tr></thead>
