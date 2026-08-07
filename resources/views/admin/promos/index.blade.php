@@ -3,10 +3,8 @@
 
 @section('content')
 <div class="card card-grid">
+    <x-table-toolbar title="Promo & Voucher" :searchable="false" addUrl="{{ route('admin.promos.create') }}" addLabel="Tambah Promo" addTitle="Tambah Promo / Voucher"></x-table-toolbar>
     <div class="card-body">
-        <div class="d-flex justify-content-end mb-3">
-            <a href="{{ route('admin.promos.create') }}" class="btn btn-sm btn-brand"><i class="fa-solid fa-plus me-1"></i>Tambah Promo</a>
-        </div>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th>Kode</th><th>Nama</th><th>Tipe</th><th>Nilai</th><th>Berlaku</th><th>Pakai</th><th>Status</th><th>Aksi</th></tr></thead>
