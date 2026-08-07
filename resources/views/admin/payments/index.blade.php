@@ -3,17 +3,15 @@
 
 @section('content')
 <div class="card card-grid">
+    <x-table-toolbar title="Pembayaran" placeholder="No. bayar / kode booking…" filter="filter">
+        <select name="status" class="form-select form-select-sm" style="width:auto">
+            <option value="all">Semua Status</option>
+            @foreach ($statuses as $k=>$v)
+                <option value="{{ $k }}" @selected(request('status', 'all')==$k)>{{ $v }}</option>
+            @endforeach
+        </select>
+    </x-table-toolbar>
     <div class="card-body">
-        <form class="d-flex gap-2 mb-3" method="get" action="" style="max-width:420px">
-            <input type="text" name="q" value="{{ request('q') }}" class="form-control form-control-sm" placeholder="Cari no. bayar / kode booking">
-            <select name="status" class="form-select form-select-sm">
-                <option value="all">Semua Status</option>
-                @foreach ($statuses as $k=>$v)
-                    <option value="{{ $k }}" @selected(request('status', 'all')==$k)>{{ $v }}</option>
-                @endforeach
-            </select>
-            <button class="btn btn-sm btn-outline-primary">Filter</button>
-        </form>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th>No.</th><th>No. Bayar</th><th>Kode Booking</th><th>Tipe</th><th>Jumlah</th><th>Metode</th><th>Status</th><th>Aksi</th></tr></thead>
