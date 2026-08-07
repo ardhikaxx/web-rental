@@ -27,6 +27,10 @@
         .main{margin-left:252px;padding:22px;min-height:100vh}
         .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:10px}
         .card-grid{border:none;border-radius:16px;box-shadow:0 3px 12px rgba(0,0,0,.05)}
+        .card-toolbar{border-bottom:1px solid #eef1f6}
+        .btn-brand{background:var(--brand);color:#fff;border:0;border-radius:9px;padding:.38rem .8rem;font-weight:600;font-size:.85rem}
+        .btn-brand:hover{background:#3750ee;color:#fff}
+        .input-group-text{color:#6b7280}
         .stat-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem}
         .table{vertical-align:middle}
         .pagination{justify-content:center}
