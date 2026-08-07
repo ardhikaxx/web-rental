@@ -3,10 +3,8 @@
 
 @section('content')
 <div class="card card-grid">
+    <x-table-toolbar title="Rute Travel" :searchable="false" addUrl="{{ route('admin.travel.create') }}" addLabel="Tambah Rute" addTitle="Tambah Rute Baru"></x-table-toolbar>
     <div class="card-body">
-        <div class="d-flex justify-content-end mb-3">
-            <a href="{{ route('admin.travel.create') }}" class="btn btn-sm btn-brand"><i class="fa-solid fa-plus me-1"></i>Tambah Rute</a>
-        </div>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th>Rute</th><th>Waktu Tempuh</th><th>Jam Berangkat</th><th>Kuota</th><th>Harga</th><th>Aksi</th></tr></thead>
