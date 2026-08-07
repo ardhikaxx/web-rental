@@ -6,14 +6,9 @@
 
 @section('content')
 <div class="card card-grid">
+    <x-table-toolbar title="Paket Wisata" placeholder="Cari paket…" addUrl="{{ route('admin.tours.create') }}" addLabel="Tambah Paket" addTitle="Tambah Paket Wisata" filter="filter">
+    </x-table-toolbar>
     <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-            <form class="d-flex gap-2" method="get" action="">
-                <input type="text" name="q" value="{{ request('q') }}" class="form-control form-control-sm" placeholder="Cari paket">
-                <button class="btn btn-sm btn-outline-primary">Filter</button>
-            </form>
-            <a href="{{ route('admin.tours.create') }}" class="btn btn-sm btn-brand"><i class="fa-solid fa-plus me-1"></i>Tambah Paket</a>
-        </div>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th></th><th>Paket</th><th>Tujuan</th><th>Durasi</th><th>Per Orang</th><th>Status</th><th>Aksi</th></tr></thead>
