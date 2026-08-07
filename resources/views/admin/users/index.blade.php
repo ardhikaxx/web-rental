@@ -3,10 +3,8 @@
 
 @section('content')
     <div class="card card-grid">
+        <x-table-toolbar title="Manajemen User" :searchable="false" addUrl="{{ route('admin.users.create') }}" addLabel="Tambah User" addTitle="Tambah User Baru"></x-table-toolbar>
         <div class="card-body">
-        <div class="d-flex justify-content-end mb-3">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-brand"><i class="fa-solid fa-plus me-1"></i>Tambah User</a>
-        </div>
         <div class="table-responsive">
             <table class="table table-striped data-table">
                 <thead><tr><th>Nama</th><th>Email</th><th>No HP</th><th>Role</th><th>Status</th><th>Aksi</th></tr></thead>
